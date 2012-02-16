@@ -1,3 +1,3 @@
 class abrt::disable inherits abrt {
-  include abrt::base
+  include abrt::disable::base
 }
