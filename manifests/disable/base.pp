@@ -10,8 +10,10 @@ class abrt::disable::base inherits abrt::base {
     require => undef
   }
   package{
-    ['abrt-addon-kerneloops','abrt-addon-ccpp','abrt-addon-python','abrt']:
+    ['abrt-addon-kerneloops','abrt-addon-ccpp',
+      'abrt-addon-python','abrt','abrt-python']:
       ensure  => absent,
       require => Service['abrtd','abrt-oops','abrt-ccpp'];
   }
+  Package['abrt-python'] -> Package['abrt']
 }
