@@ -9,11 +9,12 @@ class abrt::disable::base inherits abrt::base {
     enable => false,
     require => undef
   }
-  package{
+  exec{'yum remove abrt -y':
+    onlyif => 'rpm -qi abrt',
+  } -> package{
     ['abrt-addon-kerneloops','abrt-addon-ccpp',
-      'abrt-addon-python','abrt','abrt-python']:
+      'abrt-addon-python','abrt']:
       ensure  => absent,
       require => Service['abrtd','abrt-oops','abrt-ccpp'];
   }
-  Package['abrt-python'] -> Package['abrt']
 }
